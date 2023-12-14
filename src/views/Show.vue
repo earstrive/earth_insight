@@ -17,14 +17,12 @@
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-const text = ref(null);
-
 const router = useRouter();
 
+const text = ref(null);
+
 const earthClick = () => {
-    setTimeout(() => {
-        router.push("/home");
-    }, 500);
+    router.replace({ path: '/home' });
 }
 
 onMounted(() => {
@@ -67,11 +65,11 @@ onMounted(() => {
 }
 
 .earth {
-    width: 340rem;
-    height: 340rem;
+    width: 300rem;
+    height: 300rem;
     border-radius: 50%;
-    background: url("@/assets/img/earth.png") no-repeat -10rem 0/cover;
-    transition: all .5s;
+    background: url("@/assets/img/earth.png") no-repeat 0 0/cover;
+    transition: all 2s ease-in;
 }
 
 
