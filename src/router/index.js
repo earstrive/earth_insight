@@ -16,7 +16,7 @@ const router = createRouter({
         {
             name: "home",
             path: "/home",
-            component: () => import("@/views/Home.vue")
+            component: () => import("@/views/Home/Home.vue")
         },
         {
             // NotFound页面
