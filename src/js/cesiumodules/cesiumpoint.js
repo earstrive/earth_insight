@@ -1,7 +1,6 @@
 import * as Cesium from 'cesium';
 
 class CesiumPoint {
-    // mapbox图层
     static addPoint(viewer, longitude, latitude) {
         const billboardEntity = new Cesium.Entity({
             position: Cesium.Cartesian3.fromDegrees(longitude, latitude, 10),
@@ -38,10 +37,11 @@ class CesiumPoint {
     }
 
     static removePoint(viewer) {
-        this.viewer.entities.removeAll();
+        viewer.entities.removeAll();
     }
 
     static opintLocation(viewer, cb) {
+
         // 添加鼠标点击事件监听器
         viewer.screenSpaceEventHandler.setInputAction((movement) => {
             const pickedObject = viewer.scene.pick(movement.position);
@@ -56,7 +56,7 @@ class CesiumPoint {
                 const latitude = Cesium.Math.toDegrees(cartographicPosition.latitude);
                 const longitude = Cesium.Math.toDegrees(cartographicPosition.longitude);
 
-                cb();
+                cb(longitude, latitude);
             }
         }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
     }

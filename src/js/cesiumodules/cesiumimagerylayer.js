@@ -34,8 +34,8 @@ class CesiumImageryLayer {
     // openstreet图层
     static addopenstreetmaplayer(viewer, mapType = 0, showcredit = false) {
         // 每个URL对应不同的OpenStreetMap样式或图层
-        const urlArr = ['https://tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png', 'https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png',
-            'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png']
+        const urlArr = ['https://tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png', 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
+            'https://tile.openstreetmap.bzh/br/{z}/{x}/{y}.png', 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png']
 
         const options = {
             url: urlArr[mapType],

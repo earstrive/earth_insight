@@ -1,124 +1,118 @@
 <template>
-    <div ref="box" class="box" @touchstart="fn2" @touchmove="fn3">
-        <div ref="box2" class="box2" @touchmove.stop="fn1"></div>
-        <div ref="text" class="text">
-            <template v-for="item in 10">
-                <div :style="{ transform: style1(item) }">{{ item }}</div>
-            </template>
-
+    <div ref="outercircle" class="outercircle" @touchstart="beginTouch" @touchmove="computeDeg" @touchend="outTouch">
+        <div class="innercircle" @touchmove.stop="" :style="{ backgroundPositionX: imgsrc }" @click="changeShow">
+        </div>
+        <div class="btn" :class="{ active2: circleShow }">
+            <div class="layer" :style="{ transform: setStyle(0) }" @click="showLayers"></div>
+            <div class="collection" :style="{ transform: setStyle(1) }" @click="isLogin"></div>
+            <div class="duituodian" :style="{ transform: setStyle(2) }" @click="duituodian"></div>
+            <div :style="{ transform: setStyle(3) }">当前位置</div>
+            <div :style="{ transform: setStyle(4) }">我的</div>
+            <div :style="{ transform: setStyle(5) }">搜索</div>
+            <div :style="{ transform: setStyle(6) }">取点器</div>
+            <div :style="{ transform: setStyle(7) }">视角切换</div>
         </div>
     </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
+import { outercircle, beginTouch, computeDeg, outTouch, setStyle } from "@/hooks/circleBtn";
+import useLayersStore from '@/store/layersStore';
+import CesiumPoint from '@/js/cesiumodules/cesiumpoint';
+import { showToast } from 'vant';
+import CesiumCamera from '@/js/cesiumodules/cesiumcamera';
 
-const num = ref(0);
-const state = ref(false);
-// const isInside = ref(false);
+const layersData = useLayersStore();
 
-// let count;
-// let arr = [0];
-// let count2 = 0;
-
-const style1 = (item) => {
-    // if (state.value) {
-    //     if (isInside.value) {
-    //         count2 = arr[0] % 36;
-    //         console.log(count2);
-    //     }
-    //     count = 36 * item + count2;
-    //     count += num.value;
-    //     arr[item - 1] = count;
-    //     return "rotate(" + count + "deg)";
-    // } else {
-    //     count = 36 * item;
-    //     return "rotate(" + count + "deg)";
-    // }
-    let count = 36 * item;
-    count += num.value;
-    return "rotate(" + count + "deg)";
+/* 开关圆环 */
+const circleShow = ref(false);
+const imgsrcArr = ['-200rem', '-1rem'];
+const imgsrc = ref('-200rem');
+const changeShow = () => {
+    circleShow.value = !circleShow.value;
+    imgsrc.value = imgsrcArr[+circleShow.value];
 }
 
-
-const box = ref(null);
-const text = ref(null);
-const box2 = ref(null);
-
-
-let initialAngle = 0;
-
-const fn1 = () => {
-    console.log("橙色圆");
+/* 图层 */
+const showLayers = () => {
+    layersData.showBottom = !layersData.showBottom;
 }
 
+/* 收藏 */
+const isLogin = () => {
+    if (!localStorage.getItem("name")) {
+        layersData.isLoginTip = true;
+    }
+}
 
-const fn2 = (event) => {
-    const boxRect = box.value.getBoundingClientRect();
-    const touchX = event.touches[0].clientX - (boxRect.left + boxRect.width / 2);
-    const touchY = event.touches[0].clientY - (boxRect.top + boxRect.height / 2);
-
-    initialAngle = Math.atan2(touchY, touchX) * (180 / Math.PI);
-};
-
-const fn3 = (event) => {
-    const boxRect = box.value.getBoundingClientRect();
-    const touchX = event.touches[0].clientX - (boxRect.left + boxRect.width / 2);
-    const touchY = event.touches[0].clientY - (boxRect.top + boxRect.height / 2);
-    let angle = Math.atan2(touchY, touchX) * (180 / Math.PI);
-
-    // Check if the touch is inside the orange circle
-    // isInside.value = Math.sqrt(touchX ** 2 + touchY ** 2) <= boxRect.width / 2;
-
-    // console.log("Is inside: ", isInside.value);
-
-    // Adjust the angle to be between -180 and 180
-    angle = (angle - initialAngle + 540) % 360 - 180;
-    state.value = true;
-    num.value = angle;
-};
-
+/* 对拓点 */
+const duituodian = () => {
+    if (!layersData.choosePoint.lng) {
+        showToast('未选择点，请在屏幕上选点');
+    } else {
+        const { newLon, newLat } = CesiumPoint.getReversePoint(layersData.choosePoint.lng, layersData.choosePoint.lat);
+        CesiumPoint.addPoint(layersData.viewer, newLon, newLat);
+        CesiumCamera.flyto(layersData.viewer, [newLon, newLat, 1000000]);
+    }
+}
 </script>
 
 <style scoped>
-.box {
+.outercircle {
     width: 400rem;
     height: 400rem;
-    margin: 300rem auto;
     border-radius: 50%;
-    background-color: orange;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
 }
 
-.box2 {
+.innercircle {
     position: relative;
     width: 200rem;
     height: 200rem;
     border-radius: 50%;
     background-color: skyblue;
     z-index: 1;
+    background: url("@/assets/img/2.png") no-repeat 0 0/cover;
 }
 
-.box .text {
+.outercircle .btn {
     width: 100%;
     height: 100%;
-
     position: absolute;
+    transition: all 1s;
 }
 
-.box .text div {
-    width: 70rem;
-    height: 70rem;
+.outercircle .btn div {
+    width: 90rem;
+    height: 90rem;
     border-radius: 50%;
-    background-color: red;
-
+    background-color: rgb(204, 204, 204);
     transform-origin: 0 200rem;
-
-    /* 整体定位在中间 */
     position: absolute;
     left: 50%;
+    font-size: 20rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.outercircle .btn .layer {
+    background: url("@/assets/img/图层.png") no-repeat 0 0/cover;
+}
+
+.outercircle .btn .collection {
+    background: url("@/assets/img/收藏.png") no-repeat 0 0/cover;
+}
+
+.outercircle .btn .duituodian {
+    background: url("@/assets/img/对拓点.png") no-repeat 0 0/cover;
+}
+
+.active2 {
+    opacity: 0;
 }
 </style>
