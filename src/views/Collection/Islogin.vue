@@ -6,7 +6,10 @@
 <script setup>
 import { showConfirmDialog } from 'vant';
 import useLayersStore from "@/store/layersStore"
+import { useRouter } from 'vue-router';
+
 const layersData = useLayersStore();
+const router = useRouter();
 
 showConfirmDialog({
     title: '提示',
@@ -14,7 +17,8 @@ showConfirmDialog({
     confirmButtonText: "去登录"
 })
     .then(() => {
-        console.log("跳转登录");
+        layersData.isLoginTip = false;
+        router.push("login");
     })
     .catch(() => {
         layersData.isLoginTip = false;

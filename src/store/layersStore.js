@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import CesiumImageryLayer from "@/js/cesiumodules/cesiumimagerylayer.js";
+import { adduser, userLogin } from "@/services";
 
 const useLayersStore = defineStore("layers", {
     state: () => ({
@@ -11,6 +12,11 @@ const useLayersStore = defineStore("layers", {
         isLoginTip: false,
         // 选择点的经纬度信息
         choosePoint: {
+            lng: null,
+            lat: null
+        },
+        // 当前位置
+        userLocation: {
             lng: null,
             lat: null
         }
@@ -48,6 +54,16 @@ const useLayersStore = defineStore("layers", {
                     throw new Error("没有此图层");
             }
         },
+
+        async register(username, password) {
+            const res = await adduser(username, password);
+            return res;
+        },
+
+        async login(username, password) {
+            const res = await userLogin(username, password);
+            return res;
+        }
     }
 });
 

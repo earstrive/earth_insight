@@ -6,8 +6,8 @@
             <div class="layer" :style="{ transform: setStyle(0) }" @click="showLayers"></div>
             <div class="collection" :style="{ transform: setStyle(1) }" @click="isLogin"></div>
             <div class="duituodian" :style="{ transform: setStyle(2) }" @click="duituodian"></div>
-            <div :style="{ transform: setStyle(3) }">当前位置</div>
-            <div :style="{ transform: setStyle(4) }">我的</div>
+            <div class="dingwei" :style="{ transform: setStyle(3) }" @click="dingwei"></div>
+            <div class="mine" :style="{ transform: setStyle(4) }" @click="mine"></div>
             <div :style="{ transform: setStyle(5) }">搜索</div>
             <div :style="{ transform: setStyle(6) }">取点器</div>
             <div :style="{ transform: setStyle(7) }">视角切换</div>
@@ -22,7 +22,9 @@ import useLayersStore from '@/store/layersStore';
 import CesiumPoint from '@/js/cesiumodules/cesiumpoint';
 import { showToast } from 'vant';
 import CesiumCamera from '@/js/cesiumodules/cesiumcamera';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const layersData = useLayersStore();
 
 /* 开关圆环 */
@@ -55,6 +57,20 @@ const duituodian = () => {
         CesiumPoint.addPoint(layersData.viewer, newLon, newLat);
         CesiumCamera.flyto(layersData.viewer, [newLon, newLat, 1000000]);
     }
+}
+
+/* 当前位置 */
+const dingwei = () => {
+    if (!layersData.userLocation.lng) {
+        showToast('未获取到位置，请打开定位功能');
+    } else {
+        CesiumCamera.flyto(layersData.viewer, [layersData.userLocation.lng, layersData.userLocation.lat, 100000]);
+    }
+}
+
+/* 我的 */
+const mine = () => {
+    router.push("mine");
 }
 </script>
 
@@ -110,6 +126,14 @@ const duituodian = () => {
 
 .outercircle .btn .duituodian {
     background: url("@/assets/img/对拓点.png") no-repeat 0 0/cover;
+}
+
+.outercircle .btn .dingwei {
+    background: url("@/assets/img/定位.png") no-repeat 0 0/cover;
+}
+
+.outercircle .btn .mine {
+    background: url("@/assets/img/我的.png") no-repeat 0 0/cover;
 }
 
 .active2 {

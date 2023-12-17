@@ -6,7 +6,7 @@ class CesiumPoint {
             position: Cesium.Cartesian3.fromDegrees(longitude, latitude, 10),
             billboard: {
                 image: "./image/1.png",
-                scale: 0.15,
+                scale: 0.18,
                 horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
                 verticalOrigin: Cesium.VerticalOrigin.BOTTOM
             }

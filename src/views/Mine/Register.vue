@@ -1,0 +1,71 @@
+<template>
+    <div class="register">
+        <van-nav-bar title="注册" left-text="返回" left-arrow @click-left="onClickLeft" />
+        <div>
+            <van-form>
+                <van-cell-group inset>
+                    <van-field v-model="username" required label="用户名" placeholder="请输入用户名" />
+                    <van-field v-model="password" required type="password" label="密码" placeholder="请输入密码" />
+                    <van-field v-model="passwordAgain" required type="password" label="密码" placeholder="请确认密码" />
+                </van-cell-group>
+                <!-- <van-field name="uploader" label="头像">
+                    <template #input>
+                        <van-uploader v-model="photo" />
+                    </template>
+                </van-field> -->
+            </van-form>
+            <div class="message">{{ message }}</div>
+            <van-button round type="primary" block @click="btn1">注册</van-button>
+        </div>
+    </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import useLayersStore from "@/store/layersStore";
+
+const layersData = useLayersStore();
+
+const router = useRouter();
+
+const onClickLeft = () => {
+    router.back();
+}
+
+const username = ref("");
+const password = ref("");
+const passwordAgain = ref("");
+const message = ref("");
+
+
+const btn1 = async () => {
+    if (username.value.length >= 5 && username.value.length <= 11 &&
+        password.value.length <= 15 && password.value.length >= 6 &&
+        passwordAgain.value.length <= 15 && passwordAgain.value.length >= 6) {
+        if (password.value === passwordAgain.value) {
+            const res = await layersData.register(username.value, password.value);
+            if (res?.data?.affectedRows) {
+                message.value = "注册成功";
+                setTimeout(() => {
+                    router.back();
+                }, 1000);
+            } else {
+                message.value = res.message;
+            }
+        } else {
+            message.value = "两次密码不一致";
+        }
+    } else {
+        message.value = "用户名在5-11位，密码在6-15位";
+    }
+}
+
+</script>
+
+<style scoped>
+.message {
+    font-size: 40rem;
+    color: red;
+}
+</style>

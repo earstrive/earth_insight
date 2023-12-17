@@ -19,6 +19,21 @@ const router = createRouter({
             component: () => import("@/views/Home/Home.vue")
         },
         {
+            name: "mine",
+            path: "/mine",
+            component: () => import("@/views/Mine/Mine.vue")
+        },
+        {
+            name: "login",
+            path: "/login",
+            component: () => import("@/views/Mine/Login.vue")
+        },
+        {
+            name: "register",
+            path: "/register",
+            component: () => import("@/views/Mine/register.vue")
+        },
+        {
             // NotFound页面
             path: "/:pathMatch(.*)",
             redirect: "/show"
