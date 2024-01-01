@@ -8,6 +8,7 @@ import 'cesium/Build/Cesium/Widgets/widgets.css';
 import CesiumStart from "@/js/cesiumodules/cesiumstart.js";
 import CesiumImageryLayer from "@/js/cesiumodules/cesiumimagerylayer.js";
 import CesiumPoint from "@/js/cesiumodules/cesiumpoint.js";
+import CesiumMouseEvents from "@/js/cesiumodules/cesiummouse";
 import useCesiumStore from '@/store/cesiumStore';
 import useLayersStore from "@/store/layersStore"
 import { onMounted } from 'vue';
@@ -26,6 +27,8 @@ onMounted(() => {
     layersData.viewer = instance.viewer;
 
     CesiumImageryLayer.addmapboxlayer(cesiumData.viewer);
+    // 点击事件方法
+    layersData.cesiumMouse = new CesiumMouseEvents(layersData.viewer);
 
     // 向外部暴露方法
     const forSetLoaction = (lng, lat) => {

@@ -31,7 +31,12 @@ const router = createRouter({
         {
             name: "register",
             path: "/register",
-            component: () => import("@/views/Mine/register.vue")
+            component: () => import("@/views/Mine/Register.vue")
+        },
+        {
+            name: "favorites",
+            path: "/favorites",
+            component: () => import("@/views/Collection/Favorites.vue")
         },
         {
             // NotFound页面

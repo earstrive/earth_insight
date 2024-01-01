@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import CesiumImageryLayer from "@/js/cesiumodules/cesiumimagerylayer.js";
-import { adduser, userLogin } from "@/services";
+import { adduser, userLogin, addPoint, readPoint, renamePoint, removePoint } from "@/services";
 
 const useLayersStore = defineStore("layers", {
     state: () => ({
@@ -19,7 +19,11 @@ const useLayersStore = defineStore("layers", {
         userLocation: {
             lng: null,
             lat: null
-        }
+        },
+        // 收藏点时弹出输入收藏名
+        collectionTip: false,
+        // 鼠标事件实例
+        cesiumMouse: null
     }),
 
     getters: {
@@ -62,6 +66,26 @@ const useLayersStore = defineStore("layers", {
 
         async login(username, password) {
             const res = await userLogin(username, password);
+            return res;
+        },
+
+        async addPoint(pointName, lng, lat) {
+            const res = await addPoint(pointName, lng, lat);
+            return res;
+        },
+
+        async readPoint(offset, size) {
+            const res = await readPoint(offset, size);
+            return res;
+        },
+
+        async renamePoint(id, name) {
+            const res = await renamePoint(id, name);
+            return res;
+        },
+
+        async removePoint(id) {
+            const res = await removePoint(id);
             return res;
         }
     }

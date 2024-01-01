@@ -15,7 +15,11 @@
                 </van-field> -->
             </van-form>
             <div class="message">{{ message }}</div>
-            <van-button round type="primary" block @click="btn1">注册</van-button>
+            <div class="btn">
+                <div class="btnChild">
+                    <van-button round type="primary" block @click="btn1">注册</van-button>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -65,7 +69,21 @@ const btn1 = async () => {
 
 <style scoped>
 .message {
-    font-size: 40rem;
+    display: flex;
+    justify-content: center;
+    font-size: 25rem;
     color: red;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    flex-flow: wrap;
+    margin-top: 20rem;
+}
+
+.btnChild {
+    width: 90vw;
+    margin: 10rem 0;
 }
 </style>

@@ -1,4 +1,5 @@
 <template>
+    <Tip></Tip>
     <Islogin v-if="layersData.isLoginTip"></Islogin>
     <Layers></Layers>
     <div class="outer">
@@ -12,6 +13,7 @@ import Cesium from './Cesium.vue';
 import Btn from './Btn.vue';
 import Layers from "@/views/Layers/Layers.vue";
 import Islogin from "@/views/Collection/Islogin.vue";
+import Tip from '../Collection/Tip.vue';
 
 import useLayersStore from "@/store/layersStore"
 const layersData = useLayersStore();

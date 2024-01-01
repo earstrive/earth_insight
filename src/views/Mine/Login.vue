@@ -9,8 +9,14 @@
                 </van-cell-group>
             </van-form>
             <div class="message">{{ message }}</div>
-            <van-button round type="primary" block @click="loginBtn">登录</van-button>
-            <van-button round type="primary" block @click="toRegister">注册</van-button>
+            <div class="btn">
+                <div class="btnChild">
+                    <van-button round type="primary" block @click="loginBtn">登录</van-button>
+                </div>
+                <div class="btnChild">
+                    <van-button round type="primary" block @click="toRegister">注册</van-button>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -38,7 +44,6 @@ const password = ref('');
 const message = ref('');
 
 const loginBtn = async () => {
-    console.log(username.value, password.value);
     if (username.value.length >= 5 && username.value.length <= 11 && password.value.length <= 16 && password.value.length >= 6) {
         const res = await layersData.login(username.value, password.value);
         if (res.code === 0) {
@@ -57,7 +62,21 @@ const loginBtn = async () => {
 
 <style scoped>
 .message {
-    font-size: 40rem;
+    display: flex;
+    justify-content: center;
+    font-size: 25rem;
     color: red;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    flex-flow: wrap;
+    margin-top: 20rem;
+}
+
+.btnChild {
+    width: 90vw;
+    margin: 10rem 0;
 }
 </style>

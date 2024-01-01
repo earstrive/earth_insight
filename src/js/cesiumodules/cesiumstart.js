@@ -56,7 +56,7 @@ const options = {
     timeline: false,
     animation: false,
     homeButton: false,
-    scene3DOnly: true,
+    scene3DOnly: false,
     shouldAnimate: false,
     imageryProvider: false,
     baseLayerPicker: false,

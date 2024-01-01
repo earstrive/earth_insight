@@ -1,4 +1,4 @@
-import hyRequest from "../request"
+import hyRequest from "../request";
 
 export function userLogin(name, password) {
     return hyRequest.post({

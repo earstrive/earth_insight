@@ -8,20 +8,22 @@
             <div class="duituodian" :style="{ transform: setStyle(2) }" @click="duituodian"></div>
             <div class="dingwei" :style="{ transform: setStyle(3) }" @click="dingwei"></div>
             <div class="mine" :style="{ transform: setStyle(4) }" @click="mine"></div>
-            <div :style="{ transform: setStyle(5) }">搜索</div>
-            <div :style="{ transform: setStyle(6) }">取点器</div>
-            <div :style="{ transform: setStyle(7) }">视角切换</div>
+            <div class="qudian" :style="{ transform: setStyle(5) }" @click="qudian"></div>
+            <div class="qingchu" :style="{ transform: setStyle(6) }" @click="qingchu"></div>
+            <div class="shijiao" :style="{ transform: setStyle(7) }" @click="shijiao"></div>
         </div>
     </div>
 </template>
 
 <script setup>
+import * as Cesium from 'cesium';
+import CesiumCamera from '@/js/cesiumodules/cesiumcamera';
+import CesiumPoint from '@/js/cesiumodules/cesiumpoint';
+import CesiumMouseEvents from "@/js/cesiumodules/cesiummouse";
 import { ref } from 'vue';
 import { outercircle, beginTouch, computeDeg, outTouch, setStyle } from "@/hooks/circleBtn";
 import useLayersStore from '@/store/layersStore';
-import CesiumPoint from '@/js/cesiumodules/cesiumpoint';
 import { showToast } from 'vant';
-import CesiumCamera from '@/js/cesiumodules/cesiumcamera';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -45,6 +47,15 @@ const showLayers = () => {
 const isLogin = () => {
     if (!localStorage.getItem("name")) {
         layersData.isLoginTip = true;
+    } else {
+        if (!layersData.choosePoint.lng) {
+            showToast('未选择点，请在屏幕上选点');
+        } else {
+            CesiumCamera.flyto(layersData.viewer, [layersData.choosePoint.lng, layersData.choosePoint.lat, 8000000], 1.4);
+            setTimeout(() => {
+                layersData.collectionTip = true;
+            }, 1500);
+        }
     }
 }
 
@@ -71,6 +82,60 @@ const dingwei = () => {
 /* 我的 */
 const mine = () => {
     router.push("mine");
+}
+
+/* 地图取点 */
+let state = false;
+
+const lngLatCb = (event) => {
+    const clickPosition = new Cesium.Cartesian2();
+
+    // 获取鼠标单击点的屏幕坐标
+    clickPosition.x = event.position.x;
+    clickPosition.y = event.position.y;
+
+    // 获取鼠标单击点的地理坐标
+    const ellipsoid = layersData.viewer.scene.globe.ellipsoid;
+    const position = layersData.viewer.camera.pickEllipsoid(clickPosition, ellipsoid);
+
+    if (Cesium.defined(position)) {
+        // 获取地理坐标的经度和纬度
+        const cartographic = ellipsoid.cartesianToCartographic(position);
+        const longitude = Cesium.Math.toDegrees(cartographic.longitude);
+        const latitude = Cesium.Math.toDegrees(cartographic.latitude);
+
+        CesiumPoint.addPoint(layersData.viewer, longitude, latitude);
+    }
+}
+
+const qudian = () => {
+    if (!state) {
+        state = true;
+        layersData.cesiumMouse.addLeftClickHandler(lngLatCb);
+        showToast('取点器已打开，再次点击关闭此功能');
+    } else {
+        state = false;
+        layersData.cesiumMouse.removeAllHandlers();
+        showToast('取点器已关闭');
+    }
+}
+
+/* 清除点 */
+const qingchu = () => {
+    CesiumPoint.removePoint(layersData.viewer);
+    showToast('所有点位已移除');
+}
+
+/* 视角切换 */
+let viewState = false;
+const shijiao = () => {
+    if (!viewState) {
+        layersData.viewer.scene.mode = Cesium.SceneMode.COLUMBUS_VIEW;
+        viewState = true;
+    } else {
+        layersData.viewer.scene.mode = Cesium.SceneMode.SCENE3D;
+        viewState = false;
+    }
 }
 </script>
 
@@ -134,6 +199,18 @@ const mine = () => {
 
 .outercircle .btn .mine {
     background: url("@/assets/img/我的.png") no-repeat 0 0/cover;
+}
+
+.outercircle .btn .qudian {
+    background: url("@/assets/img/取点.png") no-repeat 0 0/cover;
+}
+
+.outercircle .btn .qingchu {
+    background: url("@/assets/img/清除.png") no-repeat 0 0/cover;
+}
+
+.outercircle .btn .shijiao {
+    background: url("@/assets/img/视角.png") no-repeat 0 0/cover;
 }
 
 .active2 {
