@@ -68,7 +68,7 @@ onMounted(() => {
     width: 300rem;
     height: 300rem;
     border-radius: 50%;
-    background: url("./image/earth.png") no-repeat 0 0/cover;
+    background: url("@/assets/img/earth.png") no-repeat 0 0/cover;
     transition: all 2s ease-in;
 }
 

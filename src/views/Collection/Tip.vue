@@ -25,6 +25,7 @@ const collectBtn = async () => {
     } else {
         const res = await layersData.addPoint(nameValue.value, layersData.choosePoint.lng, layersData.choosePoint.lat);
         if (res.code === 0) {
+            nameValue.value = "";
             layersData.collectionTip = false;
             showToast('收藏成功');
         } else {

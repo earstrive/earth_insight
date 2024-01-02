@@ -19,7 +19,6 @@
 import * as Cesium from 'cesium';
 import CesiumCamera from '@/js/cesiumodules/cesiumcamera';
 import CesiumPoint from '@/js/cesiumodules/cesiumpoint';
-import CesiumMouseEvents from "@/js/cesiumodules/cesiummouse";
 import { ref } from 'vue';
 import { outercircle, beginTouch, computeDeg, outTouch, setStyle } from "@/hooks/circleBtn";
 import useLayersStore from '@/store/layersStore';
@@ -122,6 +121,8 @@ const qudian = () => {
 
 /* 清除点 */
 const qingchu = () => {
+    layersData.choosePoint.lng = null;
+    layersData.choosePoint.lat = null;
     CesiumPoint.removePoint(layersData.viewer);
     showToast('所有点位已移除');
 }
