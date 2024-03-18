@@ -105,7 +105,8 @@ class CesiumStart {
         // 禁用了地球的半透明效果
         globe.translucency.enabled = false;
         // 启用了地球与地形的深度测试，确保地球不会被遮挡在地形之后
-        globe.depthTestAgainstTerrain = true;
+        // globe.depthTestAgainstTerrain = true;
+        globe.depthTestAgainstTerrain = false;
         // 将地球的基本颜色设置为透明，这样地球不会显示颜色
         globe.baseColor = Cesium.Color.TRANSPARENT;
 

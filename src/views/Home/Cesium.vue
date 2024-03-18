@@ -2,7 +2,7 @@
     <section id="idcomcesium">
     </section>
 </template>
-  
+
 <script setup>
 import 'cesium/Build/Cesium/Widgets/widgets.css';
 import CesiumStart from "@/js/cesiumodules/cesiumstart.js";
@@ -49,7 +49,7 @@ onMounted(() => {
     });
 });
 </script>
-  
+
 <style scoped>
 #idcomcesium {
     height: 100vh;

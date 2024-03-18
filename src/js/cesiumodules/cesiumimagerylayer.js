@@ -6,7 +6,8 @@ class CesiumImageryLayer {
         // 定义了 Mapbox 的访问令牌
         const token =
             // 'pk.eyJ1IjoiY2hpbmFjb2RlZ2VhciIsImEiOiJjbDJhanJpN2owM2h0M2RudGprNGp1amlqIn0.GpmhHCF5izxP7Dg2Imkp6Q';
-            'pk.eyJ1Ijoid2ViZ2lzNGRlbHBoaSIsImEiOiJjbGRiN3doMDMwcWZkM3lsaWdqM2xva3d4In0.d9v0S4tp2APHFLXirNecpw';
+            // 'pk.eyJ1Ijoid2ViZ2lzNGRlbHBoaSIsImEiOiJjbGRiN3doMDMwcWZkM3lsaWdqM2xva3d4In0.d9v0S4tp2APHFLXirNecpw';
+            "pk.eyJ1IjoiZWFyc3RyaXZlIiwiYSI6ImNsdHJlOG9pbDBlanQya3JtdTJqOHF0b2YifQ.JQOtAUhclckXgtcwaEz_Dg";
         // 定义了 Mapbox 样式的基础 URL
         const url = 'https://api.mapbox.com/styles/v1/';
         // 指定要加载的 Mapbox 样式
@@ -80,7 +81,7 @@ class CesiumImageryLayer {
             url: urlMap[mapType],
             subdomains: ['0', '1', '2', '3', '4', '5', '6', '7'],
             maximumLevel: 18,
-            credit: new Cesium.Credit('AMap', showcredit),
+            credit: new Cesium.Credit('tianditu', showcredit),
         };
         const imageryLayers = viewer.imageryLayers;
         const layer = new Cesium.UrlTemplateImageryProvider(options);
