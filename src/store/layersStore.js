@@ -26,7 +26,6 @@ const useLayersStore = defineStore("layers", {
         cesiumMouse: null,
         // 主题切换
         theme: {
-            isDark: false,
             color: "light"
         }
 

@@ -32,7 +32,6 @@ onMounted(() => {
 
     // 定位
     if (layersData.userLocation.lng && layersData.userLocation.lat) {
-        console.log(layersData.userLocation.lng, layersData.userLocation.lat);
         CesiumPoint.addPoint(cesiumData.viewer, layersData.userLocation.lng, layersData.userLocation.lat);
     } else {
         showToast('未获取定位信息');

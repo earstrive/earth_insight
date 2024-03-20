@@ -25,7 +25,7 @@
                         </p>
                     </van-collapse-item>
                 </van-collapse>
-                <van-cell title="版本信息" value="v1.1.0" />
+                <van-cell title="版本信息" value="v1.1.1" />
                 <van-collapse v-model="activeNames">
                     <van-collapse-item title="开发人员" name="2">
                         <div class="devInfo">
@@ -59,7 +59,7 @@
                         <div class="devInfo">
                             <div class="avatar">
                                 <img src="http://8.130.168.215/img/logo.svg" alt="头像">
-                                <span>涛洋</span>
+                                <span>陶洋</span>
                             </div>
                             <div class="email">earstrive@gmail.com</div>
                         </div>
@@ -84,8 +84,6 @@ const activeNames = ref([]);
 const onClickLeft = () => {
     router.back();
 }
-
-
 
 const text = ref(null);
 
@@ -112,7 +110,7 @@ onMounted(() => {
     height: 40vh;
     background-color: rgba(25, 25, 57, .5);
     position: relative;
-
+    margin-bottom: 20rem;
 }
 
 .content {

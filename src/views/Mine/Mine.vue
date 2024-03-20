@@ -12,22 +12,23 @@
                 <div class="username">{{ username }}</div>
             </div>
         </div>
-        <van-cell title="收藏" is-link @click="goToFavor" />
-        <van-cell title="关于" is-link @click="goToAbout" />
-        <van-cell center title="黑暗模式">
-            <template #right-icon>
-                <van-switch v-model="themeChecked" />
-            </template>
-        </van-cell>
-        <van-cell title="退出登录" is-link @click="logoff" />
+        <van-cell-group inset>
+            <van-cell title="收藏" is-link @click="goToFavor" />
+            <van-cell title="关于" is-link @click="goToAbout" />
+            <van-cell center title="黑暗模式">
+                <template #right-icon>
+                    <van-switch v-model="themeChecked" />
+                </template>
+            </van-cell>
+            <van-cell title="退出登录" is-link @click="logoff" />
+        </van-cell-group>
     </div>
 </template>
 
 <script setup>
 import { useRouter } from 'vue-router';
 import { showImagePreview } from 'vant';
-import { computed, ref, watch } from 'vue';
-import { onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { showToast, showConfirmDialog } from 'vant';
 import useLayersStore from "@/store/layersStore";
 
@@ -67,12 +68,12 @@ const themeChecked = ref(false);
 watch(themeChecked, (newValue) => {
     if (newValue) {
         layersData.theme.color = "dark";
-        layersData.theme.isDark = true;
+        localStorage.setItem("isDark", "true");
         document.body.style.backgroundColor = 'black';
         document.body.style.color = '#f5f5f5';
     } else {
         layersData.theme.color = "light";
-        layersData.theme.isDark = false;
+        localStorage.setItem("isDark", "");
         document.body.style.backgroundColor = 'transparent';
         document.body.style.color = 'canvastext';
     }
@@ -91,7 +92,8 @@ const logoff = () => {
             message: '确定退出登录'
         })
             .then(() => {
-                localStorage.clear();
+                localStorage.removeItem("name");
+                localStorage.removeItem("token");
                 showToast('退出成功');
                 location.reload();
             })
@@ -103,7 +105,7 @@ const logoff = () => {
 
 onMounted(() => {
     username.value = localStorage.getItem("name") ? localStorage.getItem("name") : "未登录，点击登录";
-    themeChecked.value = layersData.theme.isDark;
+    themeChecked.value = !!localStorage.getItem("isDark");
 });
 </script>
 
