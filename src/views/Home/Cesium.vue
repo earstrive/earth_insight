@@ -10,12 +10,12 @@ import CesiumImageryLayer from "@/js/cesiumodules/cesiumimagerylayer.js";
 import CesiumPoint from "@/js/cesiumodules/cesiumpoint.js";
 import CesiumMouseEvents from "@/js/cesiumodules/cesiummouse";
 import useCesiumStore from '@/store/cesiumStore';
-import useLayersStore from "@/store/layersStore"
+import useLayersStore from "@/store/layersStore";
 import { onMounted } from 'vue';
 import { showToast } from 'vant';
 
 const cesiumData = useCesiumStore();
-const layersData = useLayersStore()
+const layersData = useLayersStore();
 
 /*-- events --*/
 onMounted(() => {
@@ -30,16 +30,13 @@ onMounted(() => {
     // 点击事件方法
     layersData.cesiumMouse = new CesiumMouseEvents(layersData.viewer);
 
-    // 向外部暴露方法
-    const forSetLoaction = (lng, lat) => {
-        layersData.userLocation.lng = lng;
-        layersData.userLocation.lat = lat;
-        CesiumPoint.addPoint(cesiumData.viewer, lng, lat);
+    // 定位
+    if (layersData.userLocation.lng && layersData.userLocation.lat) {
+        console.log(layersData.userLocation.lng, layersData.userLocation.lat);
+        CesiumPoint.addPoint(cesiumData.viewer, layersData.userLocation.lng, layersData.userLocation.lat);
+    } else {
+        showToast('未获取定位信息');
     }
-    window.setLocation = forSetLoaction;
-
-    // 暂时定位
-    forSetLoaction(119.215698337173, 34.6086520789146);
 
     // 选择点
     CesiumPoint.opintLocation(layersData.viewer, (lng, lat) => {

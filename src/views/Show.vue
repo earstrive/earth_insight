@@ -16,6 +16,9 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import useLayersStore from "@/store/layersStore";
+
+const layersData = useLayersStore();
 
 const router = useRouter();
 
@@ -35,6 +38,13 @@ onMounted(() => {
         `;
     });
     text.value.innerHTML = span.join("");
+
+    // 向外部暴露方法
+    const forSetLoaction = (lng, lat) => {
+        layersData.userLocation.lng = lng;
+        layersData.userLocation.lat = lat;
+    }
+    window.setLocation = forSetLoaction;
 });
 </script>
 
