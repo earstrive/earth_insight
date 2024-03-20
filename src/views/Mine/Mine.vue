@@ -13,6 +13,12 @@
             </div>
         </div>
         <van-cell title="收藏" is-link @click="goToFavor" />
+        <van-cell title="关于" is-link @click="goToAbout" />
+        <van-cell center title="黑暗模式">
+            <template #right-icon>
+                <van-switch v-model="themeChecked" />
+            </template>
+        </van-cell>
         <van-cell title="退出登录" is-link @click="logoff" />
     </div>
 </template>
@@ -20,10 +26,12 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { showImagePreview } from 'vant';
-import { ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { onMounted } from 'vue';
 import { showToast, showConfirmDialog } from 'vant';
+import useLayersStore from "@/store/layersStore";
 
+const layersData = useLayersStore();
 
 const router = useRouter();
 
@@ -54,6 +62,27 @@ const goToFavor = () => {
     }
 }
 
+// 主题切换
+const themeChecked = ref(false);
+watch(themeChecked, (newValue) => {
+    if (newValue) {
+        layersData.theme.color = "dark";
+        layersData.theme.isDark = true;
+        document.body.style.backgroundColor = 'black';
+        document.body.style.color = '#f5f5f5';
+    } else {
+        layersData.theme.color = "light";
+        layersData.theme.isDark = false;
+        document.body.style.backgroundColor = 'transparent';
+        document.body.style.color = 'canvastext';
+    }
+})
+
+// 关于
+const goToAbout = () => {
+    router.push("/about");
+}
+
 // 退出登录
 const logoff = () => {
     if (localStorage.getItem("name")) {
@@ -74,6 +103,7 @@ const logoff = () => {
 
 onMounted(() => {
     username.value = localStorage.getItem("name") ? localStorage.getItem("name") : "未登录，点击登录";
+    themeChecked.value = layersData.theme.isDark;
 });
 </script>
 

@@ -23,11 +23,16 @@ const useLayersStore = defineStore("layers", {
         // 收藏点时弹出输入收藏名
         collectionTip: false,
         // 鼠标事件实例
-        cesiumMouse: null
+        cesiumMouse: null,
+        // 主题切换
+        theme: {
+            isDark: false,
+            color: "light"
+        }
+
     }),
 
     getters: {
-
     },
 
     actions: {
