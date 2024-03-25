@@ -74,7 +74,8 @@ class CesiumImageryLayer {
     static addtianditulayer(viewer, mapType = 0, showcredit = false) {
         const urlMap = [
             // 天地图矢量地图数据图层
-            'https://t{s}.tianditu.gov.cn/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=58baf5241b758221a014a0a48c27d672'
+            'https://t{s}.tianditu.gov.cn/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=58baf5241b758221a014a0a48c27d672',
+            'https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg'
         ];
 
         const options = {

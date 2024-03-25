@@ -85,9 +85,9 @@ class CesiumStart {
         // 场景的抗锯齿效果（FXAA），这有助于减少锯齿状边缘，使图像看起来更平滑
         scene.fxaa = true;
         // 隐藏了场景中的太阳
-        scene.sun.show = false;
+        scene.sun.show = true;
         // 隐藏了场景的天空盒子
-        scene.skyBox.show = false;
+        scene.skyBox.show = true;
         // 隐藏了场景的大气效果，包括大气散射和颜色渐变
         scene.skyAtmosphere.show = false;
         // 禁用了对半透明对象的拾取时的深度测试，（设置为false）还有防止快速转动地球报错问题

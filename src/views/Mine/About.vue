@@ -25,43 +25,44 @@
                         </p>
                     </van-collapse-item>
                 </van-collapse>
-                <van-cell title="版本信息" value="v1.1.1" />
+                <van-cell title="版本信息" value="v1.1.2" />
                 <van-collapse v-model="activeNames">
                     <van-collapse-item title="开发人员" name="2">
                         <div class="devInfo">
                             <div class="avatar">
-                                <img src="http://8.130.168.215/img/logo.svg" alt="头像">
-                                <span>崔雨晴</span>
-                            </div>
-                            <div class="email">earstrive@gmail.com</div>
-                        </div>
-                        <div class="devInfo">
-                            <div class="avatar">
-                                <img src="http://8.130.168.215/img/logo.svg" alt="头像">
+                                <van-image class="avatarImg" round fit="cover"
+                                    src="http://8.130.168.215/img/logo.svg" />
                                 <span>耳朵Strive</span>
                             </div>
                             <div class="email">earstrive@gmail.com</div>
                         </div>
                         <div class="devInfo">
                             <div class="avatar">
-                                <img src="http://8.130.168.215/img/logo.svg" alt="头像">
-                                <span>阚雨露</span>
+                                <van-image class="avatarImg" round fit="cover" src="/image/kan.jpg" />
+                                <span>木木嘻</span>
                             </div>
-                            <div class="email">earstrive@gmail.com</div>
+                            <div class="email">3556380496@qq.com</div>
                         </div>
                         <div class="devInfo">
                             <div class="avatar">
-                                <img src="http://8.130.168.215/img/logo.svg" alt="头像">
-                                <span>李国旺</span>
+                                <van-image class="avatarImg" round fit="cover" src="/image/li.jpg" />
+                                <span>octobersun</span>
                             </div>
-                            <div class="email">earstrive@gmail.com</div>
+                            <div class="email">OctoberSunTen@outlook.com</div>
                         </div>
                         <div class="devInfo">
                             <div class="avatar">
-                                <img src="http://8.130.168.215/img/logo.svg" alt="头像">
-                                <span>陶洋</span>
+                                <van-image class="avatarImg" round fit="cover" src="/image/tao.jpg" />
+                                <span>T_yyyyy_T</span>
                             </div>
-                            <div class="email">earstrive@gmail.com</div>
+                            <div class="email">1811706686@qq.com</div>
+                        </div>
+                        <div class="devInfo">
+                            <div class="avatar">
+                                <van-image class="avatarImg" round fit="cover" src="/image/cui.jpg" />
+                                <span>芋泥脆啵啵</span>
+                            </div>
+                            <div class="email">1161279558@qq.com</div>
                         </div>
                         <div class="rank">以上排名按照名称排序</div>
                     </van-collapse-item>
@@ -136,7 +137,7 @@ onMounted(() => {
     width: 300rem;
     height: 300rem;
     border-radius: 50%;
-    background: url("@/assets/img/earth.png") no-repeat 0 0/cover;
+    background: url("/image/earth2.png") no-repeat 0 0/cover;
     transition: all 2s ease-in;
 }
 
@@ -182,7 +183,7 @@ onMounted(() => {
     align-items: center;
 }
 
-.devInfo .avatar img {
+.devInfo .avatar .avatarImg {
     width: 50rem;
     margin-right: 10rem;
 }

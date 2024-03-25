@@ -1,18 +1,16 @@
 <template>
     <div class="register">
-        <van-nav-bar title="注册" left-text="返回" left-arrow @click-left="onClickLeft" />
-        <div>
+        <van-nav-bar title="注册" left-text="返回" left-arrow @click-left="onClickLeft" fixed />
+        <div class="registerInfo">
+            <div class="loginIcon">
+                <img src="/image/login.png" alt="">
+            </div>
             <van-form>
                 <van-cell-group inset>
                     <van-field v-model="username" required label="用户名" placeholder="请输入用户名" />
                     <van-field v-model="password" required type="password" label="密码" placeholder="请输入密码" />
-                    <van-field v-model="passwordAgain" required type="password" label="密码" placeholder="请确认密码" />
+                    <van-field v-model="passwordAgain" required type="password" label="确认密码" placeholder="请确认密码" />
                 </van-cell-group>
-                <!-- <van-field name="uploader" label="头像">
-                    <template #input>
-                        <van-uploader v-model="photo" />
-                    </template>
-                </van-field> -->
             </van-form>
             <div class="message">{{ message }}</div>
             <div class="btn">
@@ -68,6 +66,24 @@ const btn1 = async () => {
 </script>
 
 <style scoped>
+.registerInfo {
+    height: 100vh;
+    background: linear-gradient(to bottom, rgba(161, 196, 253, .8), rgba(194, 233, 251, .2));
+}
+
+.loginIcon {
+    height: 40vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginIcon img {
+    width: 250rem;
+    margin-top: 5vh;
+}
+
 .message {
     display: flex;
     justify-content: center;
@@ -83,7 +99,7 @@ const btn1 = async () => {
 }
 
 .btnChild {
-    width: 90vw;
+    width: 80vw;
     margin: 10rem 0;
 }
 </style>

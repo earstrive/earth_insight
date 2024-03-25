@@ -1,20 +1,25 @@
 <template>
-    <div class="show">
-        <div class="content">
-            <div class="earth" @click="earthClick">
+    <div class="show" @click="toMine">
+        <div class="earthBox">
+            <div class="back" :class="{ active: isActive }">
+                <img src="/image/back.png" alt="">
+            </div>
+            <div class="earth">
+                <img src="/image/earth.png" alt="">
             </div>
         </div>
-
-        <div class="content2">
-            <div class="box">
-                <div ref="text" class="text">- EARTH - INSIGHT -</div>
-            </div>
+        <div class="info">
+            <div class="infoTxt">{{ infoTxt }}</div>
+            <van-loading v-show="loadShow" class="loading" color="#1989fa" />
+        </div>
+        <div class="text">
+            <img src="/image/text.png" alt="">
         </div>
     </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import useLayersStore from "@/store/layersStore";
 
@@ -22,99 +27,103 @@ const layersData = useLayersStore();
 
 const router = useRouter();
 
-const text = ref(null);
+// 背景渐变
+const isActive = ref(false);
 
-const earthClick = () => {
+setInterval(() => {
+    isActive.value = !isActive.value;
+}, 1500);
+
+// 文字提示
+const infoTxt = ref("点击进入");
+const loadShow = ref(false);
+
+
+
+// 路由跳转
+const toMine = () => {
+    infoTxt.value = "加载中";
+    loadShow.value = true;
     router.replace({ path: '/home' });
 }
 
-onMounted(() => {
-    const span = text.value.innerHTML.split("").map((item, i) => {
-        // 返回切割好的文字标签
-        return `
-            <span style="transform:rotate(${i * 20}deg);font-size: 40rem;transform-origin: 0 200rem;position: absolute;left: 50%;">
-              ${item}
-            </span>
-        `;
-    });
-    text.value.innerHTML = span.join("");
-
-    // 向外部暴露方法
-    const forSetLoaction = (lng, lat) => {
-        layersData.userLocation.lng = lng;
-        layersData.userLocation.lat = lat;
-    }
-    window.setLocation = forSetLoaction;
-});
+// 暴露方法
+const forSetLoaction = (lng, lat) => {
+    layersData.userLocation.lng = lng;
+    layersData.userLocation.lat = lat;
+}
+window.setLocation = forSetLoaction;
 </script>
 
 <style scoped>
 .show {
     height: 100vh;
-    background-color: rgb(25, 25, 57);
+    background-color: rgb(23, 15, 87);
+}
+
+.earthBox {
     position: relative;
 }
 
-.content {
-    position: relative;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
+.earthBox img {
+    width: 600rem;
 }
 
-.content2 {
-    position: absolute;
+.back {
     width: 100vw;
-    height: 100vh;
+    position: absolute;
     display: flex;
     justify-content: center;
-    align-items: center;
-    top: 0;
+    filter: blur(500rem);
+    top: 200rem;
+    z-index: 1;
+    transition: all 1.5s;
 }
 
 .earth {
-    width: 300rem;
-    height: 300rem;
-    border-radius: 50%;
-    background: url("@/assets/img/earth.png") no-repeat 0 0/cover;
-    transition: all 2s ease-in;
+    width: 100vw;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    top: 200rem;
+    z-index: 2;
 }
 
-
-.earth:hover {
-    width: 750rem;
-    height: 750rem;
+.text {
+    position: absolute;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    bottom: 100rem;
 }
 
+.text img {
+    width: 500rem;
+}
 
-.box {
+.info {
+    position: absolute;
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 400rem;
-    height: 400rem;
-    border-radius: 50%;
-    position: relative;
-    color: white;
+    bottom: 500rem;
+    flex-flow: column;
 }
 
-.box .text {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    animation: animate 20s linear infinite;
-
+.info .infoTxt {
+    width: 500rem;
+    text-align: center;
+    font-size: 25rem;
+    font-weight: bold;
+    color: rgb(63, 97, 192);
 }
 
-@keyframes animate {
-    0% {
-        transform: rotate(0);
-    }
+.info .loading {
+    width: 25rem;
+}
 
-    100% {
-        transform: rotate(-360deg);
-    }
+.active {
+    filter: blur(50rem);
 }
 </style>

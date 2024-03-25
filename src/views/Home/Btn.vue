@@ -158,7 +158,7 @@ const shijiao = () => {
     border-radius: 50%;
     background-color: skyblue;
     z-index: 1;
-    background: url("@/assets/img/2.png") no-repeat 0 0/cover;
+    background: url("/image/2.png") no-repeat 0 0/cover;
 }
 
 .outercircle .btn {
@@ -183,35 +183,35 @@ const shijiao = () => {
 }
 
 .outercircle .btn .layer {
-    background: url("@/assets/img/图层.png") no-repeat 0 0/cover;
+    background: url("/image/图层.png") no-repeat 0 0/cover;
 }
 
 .outercircle .btn .collection {
-    background: url("@/assets/img/收藏.png") no-repeat 0 0/cover;
+    background: url("/image/收藏.png") no-repeat 0 0/cover;
 }
 
 .outercircle .btn .duituodian {
-    background: url("@/assets/img/对拓点.png") no-repeat 0 0/cover;
+    background: url("/image/对跖点.png") no-repeat 0 0/cover;
 }
 
 .outercircle .btn .dingwei {
-    background: url("@/assets/img/定位.png") no-repeat 0 0/cover;
+    background: url("/image/定位.png") no-repeat 0 0/cover;
 }
 
 .outercircle .btn .mine {
-    background: url("@/assets/img/我的.png") no-repeat 0 0/cover;
+    background: url("/image/我的.png") no-repeat 0 0/cover;
 }
 
 .outercircle .btn .qudian {
-    background: url("@/assets/img/取点.png") no-repeat 0 0/cover;
+    background: url("/image/取点.png") no-repeat 0 0/cover;
 }
 
 .outercircle .btn .qingchu {
-    background: url("@/assets/img/清除.png") no-repeat 0 0/cover;
+    background: url("/image/清除.png") no-repeat 0 0/cover;
 }
 
 .outercircle .btn .shijiao {
-    background: url("@/assets/img/视角.png") no-repeat 0 0/cover;
+    background: url("/image/视角.png") no-repeat 0 0/cover;
 }
 
 .active2 {

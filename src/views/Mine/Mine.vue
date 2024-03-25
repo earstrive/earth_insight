@@ -4,7 +4,7 @@
         <van-toast></van-toast>
         <van-nav-bar title="我的" left-text="返回" left-arrow @click-left="onClickLeft" />
         <div class="userInfo">
-            <van-image round fit="cover" width="150rem" height="150rem" src="http://8.130.168.215/img/logo.svg"
+            <van-image round fit="cover" width="150rem" height="150rem" src="/image/earth2.png"
                 @click="touxiangClick" />
             <van-image-preview></van-image-preview>
             <div class="userInfo2" @click="toLogin">
@@ -43,7 +43,7 @@ const onClickLeft = () => {
 
 // 头像放大
 const touxiangClick = () => {
-    showImagePreview(['http://8.130.168.215/img/logo.svg']);
+    showImagePreview(['/image/earth2.png']);
 }
 
 // 用户名

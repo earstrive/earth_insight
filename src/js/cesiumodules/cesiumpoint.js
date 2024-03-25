@@ -3,10 +3,10 @@ import * as Cesium from 'cesium';
 class CesiumPoint {
     static addPoint(viewer, longitude, latitude) {
         const billboardEntity = new Cesium.Entity({
-            position: Cesium.Cartesian3.fromDegrees(longitude, latitude, 10),
+            position: Cesium.Cartesian3.fromDegrees(longitude, latitude, 1),
             billboard: {
-                image: "./image/1.png",
-                scale: 0.18,
+                image: "/image/marker.png",
+                scale: .7,
                 horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
                 verticalOrigin: Cesium.VerticalOrigin.BOTTOM
             }

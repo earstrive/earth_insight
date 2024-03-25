@@ -1,7 +1,10 @@
 <template>
     <div class="login">
-        <van-nav-bar title="登录" left-text="返回" left-arrow @click-left="onClickLeft" />
-        <div>
+        <van-nav-bar title="登录" left-text="返回" left-arrow @click-left="onClickLeft" fixed />
+        <div class="loginInfo">
+            <div class="loginIcon">
+                <img src="/image/login.png" alt="">
+            </div>
             <van-form>
                 <van-cell-group inset>
                     <van-field v-model="username" required label="用户名" placeholder="请输入用户名" />
@@ -61,6 +64,24 @@ const loginBtn = async () => {
 </script>
 
 <style scoped>
+.loginInfo {
+    height: 100vh;
+    background: linear-gradient(to bottom, rgba(161, 196, 253, .8), rgba(194, 233, 251, .2));
+}
+
+.loginIcon {
+    height: 40vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginIcon img {
+    width: 250rem;
+    margin-top: 5vh;
+}
+
 .message {
     display: flex;
     justify-content: center;
@@ -76,7 +97,7 @@ const loginBtn = async () => {
 }
 
 .btnChild {
-    width: 90vw;
+    width: 80vw;
     margin: 10rem 0;
 }
 </style>
