@@ -30,6 +30,13 @@
                     <van-collapse-item title="开发人员" name="2">
                         <div class="devInfo">
                             <div class="avatar">
+                                <van-image class="avatarImg" round fit="cover" src="/image/long.jpg" />
+                                <span>Baulllaire</span>
+                            </div>
+                            <div class="email">17394730267@163.com</div>
+                        </div>
+                        <div class="devInfo">
+                            <div class="avatar">
                                 <van-image class="avatarImg" round fit="cover"
                                     src="http://8.130.168.215/img/logo.svg" />
                                 <span>耳朵Strive</span>

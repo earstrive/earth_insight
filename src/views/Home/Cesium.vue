@@ -26,7 +26,7 @@ onMounted(() => {
     cesiumData.viewer = instance.viewer;
     layersData.viewer = instance.viewer;
 
-    CesiumImageryLayer.addtianditulayer(cesiumData.viewer, 1);
+    CesiumImageryLayer.addarcgislayerbyurl(cesiumData.viewer, 1);
     // 点击事件方法
     layersData.cesiumMouse = new CesiumMouseEvents(layersData.viewer);
 
